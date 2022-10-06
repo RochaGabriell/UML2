@@ -1,11 +1,12 @@
-# from models.Advogado import Advogado
-# from models.Assume import Assume
+import json
+from models.Advogado import Advogado
+from models.Assume import Assume
+from models.Tribunal import Tribunal
 from models.Processo import Processo
 from models.Pessoa import Pessoa, PessoaFisica, PessoaJuridica
 from models.Audiencia import Audiencia
 from models.Custa import Custa
 from models.Vara import Vara
-# from models.Tribunal import Tribunal
 
 def main():
     
@@ -32,20 +33,61 @@ def main():
 
     print("- MODULO VARA -") # Modulo Vara
 
-    vara = Vara()
+    vara = Vara("Vara do Trabalho")
+    vara1 = Vara("Vara Civel")
+
+    vara.registrarVara(vara)
+    vara.registrarVara(vara1)
+
+    vara.listarVara()
+
     
+    
+    print("- MODULO Tribunal -") # Modulo Tribunal
+
+    b = vara.consultaVara("Vara do Trabalho")
+
+    tribunal = Tribunal("STF", "Praca dos Tres Poderes - Brasilia, DF, 70175-900", b)
+    
+    b = vara.consultaVara("Vara Civel")
+    
+    tribunal1 = Tribunal("TSE", "R. Percilio Santana, 266, Formosa do Rio Preto - BA, 47990-000", b)
+
+    tribunal.registrarTribunal(tribunal)
+    tribunal.registrarTribunal(tribunal1)
+
+    tribunal.listarTribunal()   
+
+    # print(tribunal.consultarTribunal("STF"))
+
+
+
+
+    print("- MODULO Advogado -") # Modulo Advogado
+
+    advogado = Advogado(1005490, "Karl Alelaf Mismiler da Silva", "Rua. Dom Pedro XX", "(89) 99923-4234", "Centro", "PI", "alelafkarl@gmail.com")
+    advogado1 = Advogado(2341224, "Marcos do Livramento Souza", "Rua. Dom Pedro IX", "(89) 32432-3234", "Centro", "PI", "livramentodr@gmail.com")
+    advogado.registrarAdvogado(advogado)
+    advogado.registrarAdvogado(advogado1)
+    
+    advogado.listarAdvogado()
+
+
+
     print("- MODULO PROCESSO -") # Modulo Processo
 
     busca_f = pessoa_fisica.consultarPessoa("634.342.983-13")
     busca_j = pessoa_juridica.consultarPessoa("43.423.5345/0001-34")
+    b = vara.consultaVara("Vara Civel")
 
     processo = Processo("T24235R", "10/10/2022", "22/02/2023", "Processo Judicial de Desapropriacao", True, busca_f, 
-    busca_j)
+    busca_j, b)
 
     busca_f = pessoa_fisica.consultarPessoa("432.234.983-00")
     busca_j = pessoa_juridica.consultarPessoa("68.698.199/0001-07")
+    b = vara.consultaVara("Vara do Trabalho")
 
-    processo1 = Processo("TF2343", "25/10/2022", "15/07/2023", "Processo cautelar", False, busca_f, busca_j)
+    processo1 = Processo("TF2343", "25/10/2022", "15/07/2023", "Processo cautelar", False, busca_f, busca_j, b)
     # processo2 = Processo("TF344343", "31/10/2022", "20/01/2023", "Processo de Conhecimento Declaratorio", True, Pessoa, Pessoa)
     processo.registrarProcesso(processo)
     processo.registrarProcesso(processo1)
@@ -53,6 +95,22 @@ def main():
 
     processo.listarProcesso()
 
+
+
+    print("- MODULO Assume -") # Modulo Assume
+    
+    b = processo.consultarProcesso("T24235R")
+    assume = Assume("05/10/2022", "12/12/2022", b)
+    b = processo.consultarProcesso("TF2343")
+    assume1 = Assume("15/10/2022", "12/02/2023", b)
+
+    b = advogado.consultaAdvogado(1005490)
+    assume.incluirAdvogado(b["__oabAdvogado"])
+
+    b = advogado.consultaAdvogado(2341224)
+    assume.incluirAdvogado(b["__oabAdvogado"])
+
+    print(json.dumps(assume.pesquisarAdvogado(1005490), sort_keys=False, indent=4))
 
 
 
@@ -79,7 +137,6 @@ def main():
     # audiencia.consultarAudiencia("T24235R")
 
 
-
     
 
     print("- MODULO CUSTA -") # Modulo Custa
@@ -101,7 +158,6 @@ def main():
 
     custa.listarCusta()
     # print(custa.consultarCusta("Sustentacao Oral"))   
-
-
+    
 if __name__ == "__main__":
     main()

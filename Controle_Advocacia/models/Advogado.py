@@ -91,7 +91,7 @@ class Advogado:
                 }
                 return dict_Advogado # advogado.__dict__
 
-    def listarAdvogado(self) -> str: # listar todos os advogados registrados
+    def listarAdvogado(self) -> None: # listar todos os advogados registrados
         for advogado in self._dados_Advogado:
             dict_Advogado = {
                 "__oabAdvogado" : advogado.__oabAdvogado,
@@ -103,9 +103,3 @@ class Advogado:
                 "__emailAdvogado" : advogado.__emailAdvogado
                 }
             print(json.dumps(dict_Advogado, sort_keys=False, indent=4))
-
-advogado = Advogado(1005490, "Karl Alelaf Mismiler da Silva", "Rua. Dom Pedro XX", "(89) 99923-4234", "Centro", "PI", "alelafkarl@gmail.com")
-advogado2 = Advogado(2341224, "Marcos do Livramento Souza", "Rua. Dom Pedro IX", "(89) 32432-3234", "Centro", "PI", "livramentodr@gmail.com")
-advogado.registrarAdvogado(advogado)
-advogado.registrarAdvogado(advogado2)
-# advogado.listarAdvogado()

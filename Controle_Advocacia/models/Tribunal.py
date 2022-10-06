@@ -1,7 +1,11 @@
+import json
+from models.Vara import Vara
+
 class Tribunal:
-    def __init__(self, denominacaoTribunal: str, enderecoTribunal: str) -> None:
+    def __init__(self, denominacaoTribunal: str, enderecoTribunal: str, vara: Vara) -> None:
         self.__denominacaoTribunal = denominacaoTribunal
         self.__enderecoTribunal = enderecoTribunal
+        self.__vara = vara
         self._dados_Tribunal = []
 
     #Métodos referentes ao atributo denominacaoTribunal
@@ -30,7 +34,8 @@ class Tribunal:
             if denomicacao == tribunal.__denominacaoTribunal:
                 dict_Tribunal = {
                     "__denominacaoTribunal": tribunal.__denominacaoTribunal,
-                    "__enderecoTribunal": tribunal.__enderecoTribunal
+                    "__enderecoTribunal": tribunal.__enderecoTribunal,
+                    "__vara": tribunal.__vara
                 }
                 return dict_Tribunal
 
@@ -38,20 +43,7 @@ class Tribunal:
         for tribunal in self._dados_Tribunal:
             dict_Tribunal = {
                 "__denominacaoTribunal": tribunal.__denominacaoTribunal,
-                "__enderecoTribunal": tribunal.__enderecoTribunal
+                "__enderecoTribunal": tribunal.__enderecoTribunal,
+                "__vara": tribunal.__vara
             }
-            print(dict_Tribunal)
-
-tribunal = Tribunal("STF", "Praça dos Três Poderes - Brasília, DF, 70175-900")
-tribunal1 = Tribunal("TSE", "R. Percílio Santana, 266, Formosa do Rio Preto - BA, 47990-000")
-tribunal2 = Tribunal("STJ", "SAFS - Setor de Administração Federal Sul Quadra 06, Trecho III, Lote 01 - Asa Sul, Brasília - DF, 70095-900")
-tribunal3 = Tribunal("CJF", "St. de Clubes Esportivos Sul Trecho 3 - Asa Sul, Brasília - DF, 70200-003")
-
-tribunal.registrarTribunal(tribunal)
-tribunal.registrarTribunal(tribunal1)
-tribunal.registrarTribunal(tribunal2)
-tribunal.registrarTribunal(tribunal3)
-
-# print(tribunal.consultarTribunal("TSE"))
-
-tribunal.listarTribunal()
+            print(json.dumps(dict_Tribunal, sort_keys=False, indent=4))

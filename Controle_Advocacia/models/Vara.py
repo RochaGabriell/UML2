@@ -1,9 +1,7 @@
-from models.Processo import Processo
-
 class Vara:
-    def __init__(self, descricaoVara: str, processo: Processo) -> None:
+    def __init__(self, descricaoVara: str) -> None:
         self.__descricaoVara = descricaoVara
-        self._dados_Vara = ["Vara do Trabalho", "Vara da Fazenda Pública", "Vara Cível", "Vara criminal"]
+        self._dados_Vara = []
 
     #Métodos referentes ao atributo descricaoVara
     @property
@@ -14,11 +12,14 @@ class Vara:
     def descricaoVara(self, descricao: str) -> None:
         self.__descricaoVara = descricao
 
-    def consultaVara(self, descricao) -> str:
+    def registrarVara(self, self_v) -> None:
+        self._dados_Vara.append(self_v)
+
+    def consultaVara(self, descricao: str) -> str:
         for vara in self._dados_Vara:
             if descricao == vara.__descricaoVara:
-                print(vara)
+                return vara.__descricaoVara
 
     def listarVara(self) -> str:
         for vara in self._dados_Vara:
-            print(vara)
+            print(vara.__descricaoVara)

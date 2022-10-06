@@ -1,10 +1,9 @@
 import json
 from models.Pessoa import Pessoa, PessoaFisica, PessoaJuridica
-# from Audiencia import Audiencia
-# from Custa import Custa
+from models.Vara import Vara
 
 class Processo:
-    def __init__(self, numeroProcesso: str, aberturaProcesso: str, conclusaoProcesso: str, descricaoProcesso: str, situacaoProcesso: bool, pessoaCliente: PessoaFisica, pessoaContrario: PessoaJuridica) -> None:
+    def __init__(self, numeroProcesso: str, aberturaProcesso: str, conclusaoProcesso: str, descricaoProcesso: str, situacaoProcesso: bool, pessoaCliente: PessoaFisica, pessoaContrario: PessoaJuridica, vara: Vara) -> None:
         self.__numeroProcesso = numeroProcesso
         self.__aberturaProcesso = aberturaProcesso
         self.__conclusaoProcesso = conclusaoProcesso
@@ -12,6 +11,7 @@ class Processo:
         self.__situacaoProcesso = situacaoProcesso
         self.__pessoaCliente = pessoaCliente
         self.__pessoaContrario = pessoaContrario
+        self.__vara = vara
         self._dados_Processo = []
 
     def registrarProcesso(self, self_p) -> None:
@@ -27,7 +27,8 @@ class Processo:
                     "__descricaoProcesso": processo.__descricaoProcesso,
                     "__situacaoProcesso": processo.__situacaoProcesso,
                     "__pessoaCliente": processo.__pessoaCliente,
-                    "__pessoaContrario": processo.__pessoaContrario
+                    "__pessoaContrario": processo.__pessoaContrario,
+                    "__vara": processo.__vara
                     }
                 # print(json.dumps(dict_Processo, sort_keys=False, indent=4))
                 return dict_Processo
@@ -41,7 +42,8 @@ class Processo:
                 "__descricaoProcesso": processo.__descricaoProcesso,
                 "__situacaoProcesso": processo.__situacaoProcesso,
                 "__pessoaCliente": processo.__pessoaCliente,
-                "__pessoaContrario": processo.__pessoaContrario
+                "__pessoaContrario": processo.__pessoaContrario,
+                "__vara": processo.__vara
                 }
             print(json.dumps(dict_Processo, sort_keys=False, indent=4))
 
